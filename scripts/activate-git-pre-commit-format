@@ -134,7 +134,7 @@ readonly apply_format_relative_to_top_dir
 
 function install() {
     echo "Installing the hook in all subdirectories ..."
-    for dir in $top_dir/*/
+    for dir in $top_dir/codal-*/
     do
         dir=${dir%*/} # remove the trailing "/"
         if [ -e "$dir/.git" ]; then

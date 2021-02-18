@@ -119,30 +119,34 @@ readonly me
 my_dir=$(dirname "$me") || exit 1
 readonly my_dir
 
-function install_link() {
-    echo "create symbolic link for all subdirectories ..."
-    if [ ! -d "$top_dir/codal/libraries/" ]; then
-        mkdir $top_dir/codal/libraries
-    fi
-    
-    cd $top_dir/codal/libraries
-    
-    for dir in $top_dir/codal-*/
-    do
-        dir=${dir%*/} # remove the trailing "/"
-        dir_name=$(rel_realpath "$dir" "$top_dir") || exit 1
-        if [ -e $dir_name ] && [ ! -L $dir_name ]; then
-            echo "$dir_name is not a symbolic link..."
-            echo "remove the existing file"
-            rm -Rf $dir_name
-            ln -s $dir
-            echo "...symbolic link created"
-        elif [ ! -e $dir_name ];then
-            echo "$dir_name doen't exist ..."
-            ln -s $dir
-            echo "...symbolic link created"
-        fi
-    done
-}
+REPO_NAME="codal-stm32-NUCLEO_F4x1RE"
+REPO_PATH="codal/libraries/$REPO_NAME"
+REPO_URL="https://github.com/letssteam/$REPO_NAME"
 
-install_link
+cd $top_dir
+
+if [ -e codal/sample ];then
+    rm -Rf codal/sample
+fi
+
+if [ -e codal/source ];then
+    rm -Rf codal/source
+fi
+
+if [ -e codal/codal.json ];then
+    rm -Rf codal/codal.json
+fi
+
+echo \
+"{
+  \"target\": {
+  \"name\": \"$REPO_NAME\", 
+  \"url\": \"$REPO_URL\",
+  \"branch\": \"main\",
+  \"type\": \"git\",
+  \"dev\": true
+  }
+}" > codal/codal.json
+
+cd $top_dir/codal
+./build.py -d
