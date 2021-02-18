@@ -92,7 +92,11 @@
 			"sstream": "cpp",
 			"streambuf": "cpp",
 			"stm32_def.h": "c",
-			"stddef.h": "c"
+			"stddef.h": "c",
+			"pinaf_stm32f1.h": "c",
+			"stm32wbxx_hal_gpio_ex.h": "c",
+			"stm32wbxx.h": "c",
+			"stm32wb55xx.h": "c"
 		}
 	}
 }
