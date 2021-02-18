@@ -1,0 +1,125 @@
+#! /bin/bash
+# Force variable declaration before access.
+set -u
+
+# Make any failure in piped commands be reflected in the exit code.
+set -o pipefail
+
+readonly bash_source="${BASH_SOURCE[0]:-$0}"
+
+if [ -t 1 ] && hash tput 2> /dev/null; then
+    readonly b=$(tput bold)
+    readonly i=$(tput sitm)
+    readonly n=$(tput sgr0)
+else
+    readonly b=
+    readonly i=
+    readonly n=
+fi
+
+function error_exit() {
+    for str in "$@"; do
+        echo -n "$b$str$n" >&2
+    done
+    echo >&2
+
+    exit 1
+}
+
+# realpath is not available everywhere.
+function realpath() {
+    if [ "${OSTYPE:-}" = "linux-gnu" ]; then
+        readlink -m "$@"
+    else
+        # Python should always be available on macOS.
+        # We use sys.stdout.write instead of print so it's compatible with both Python 2 and 3.
+        python -c "import sys; import os.path; sys.stdout.write(os.path.realpath('''$1''') + '\\n')"
+    fi
+}
+
+# realpath --relative-to is only available on recent Linux distros.
+# This function behaves identical to Python's os.path.relpath() and doesn't need files to exist.
+function rel_realpath() {
+    local -r path=$(realpath "$1")
+    local -r rel_to=$(realpath "${2:-$PWD}")
+
+    # Split the paths into components.
+    IFS='/' read -r -a path_parts <<< "$path"
+    IFS='/' read -r -a rel_to_parts <<< "$rel_to"
+
+    # Search for the first different component.
+    for ((idx=1; idx<${#path_parts[@]}; idx++)); do
+        if [ "${path_parts[idx]}" != "${rel_to_parts[idx]:-}" ]; then
+            break
+        fi
+    done
+
+    result=()
+    # Add the required ".." to the $result array.
+    local -r first_different_idx="$idx"
+    for ((idx=first_different_idx; idx<${#rel_to_parts[@]}; idx++)); do
+        result+=("..")
+    done
+    # Add the required components from $path.
+    for ((idx=first_different_idx; idx<${#path_parts[@]}; idx++)); do
+        result+=("${path_parts[idx]}")
+    done
+
+    if [ "${#result[@]}" -gt 0 ]; then
+        # Join the array with a "/" as separator.
+        echo "$(export IFS='/'; echo "${result[*]}")"
+    else
+        echo .
+    fi
+}
+
+
+# Find the top-level git directory (taking into account we could be in a submodule).
+declare git_test_dir=.
+declare top_dir
+
+while true; do
+    top_dir=$(git -C "$git_test_dir" rev-parse --show-toplevel) || \
+        error_exit "You need to be in the git repository to run this script."
+
+    # Try to handle git worktree.
+    # The best way to deal both with git submodules and worktrees would be to
+    # use --show-superproject-working-tree, but it's not supported in git 2.7.4
+    # which is shipped in Ubuntu 16.04.
+    declare git_common_dir
+    if git_common_dir=$(git -C "$git_test_dir" rev-parse --git-common-dir 2>/dev/null); then
+        # The common dir could be relative, so we make it absolute.
+        git_common_dir=$(cd "$git_test_dir" && realpath "$git_common_dir")
+        declare maybe_top_dir
+        maybe_top_dir=$(realpath "$git_common_dir/..")
+        if [ -e "$maybe_top_dir/.git" ]; then
+            # We are not in a submodules, otherwise common dir would have been
+            # something like PROJ/.git/modules/SUBMODULE and there would not be
+            # a .git directory in PROJ/.git/modules/.
+            top_dir="$maybe_top_dir"
+        fi
+    fi
+
+    [ -e "$top_dir/.git" ] || \
+        error_exit "No .git directory in $top_dir."
+
+    if [ -d "$top_dir/.git" ]; then
+        # We are done! top_dir is the root git directory.
+        break
+    elif [ -f "$top_dir/.git" ]; then
+        # We are in a submodule.
+        git_test_dir="$git_test_dir/.."
+    fi
+done
+
+readonly top_dir
+me=$(realpath "$bash_source") || exit 1
+readonly me
+
+my_dir=$(dirname "$me") || exit 1
+readonly my_dir
+
+cd $top_dir
+scripts/tag_codal-stm32-DISCO_L475VG_IOT
+scripts/tag_codal-stm32-NUCLEO_F4x1RE
+scripts/tag_codal-stm32-PNUCLEO_WB55RG
