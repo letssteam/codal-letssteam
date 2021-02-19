@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "scripts"
+		},
+		{
 			"path": "codal"
 		},
 		{
@@ -17,9 +20,6 @@
 		},
 		{
 			"path": "codal-stm32-NUCLEO_F4x1RE"
-		},
-		{
-			"path": "scripts"
 		}
 	],
 	"settings": {
@@ -97,15 +97,67 @@
 			"stm32wbxx_hal_gpio_ex.h": "c",
 			"stm32wbxx.h": "c",
 			"stm32wb55xx.h": "c"
-		}
+		},
+		"editor.formatOnSave": true,
+		"files.autoSave": "onFocusChange"
 	},
 	"extensions": {
 		"recommendations": [
-			"github.vscode-pull-request-github"
+			"github.vscode-pull-request-github",
+			"xaver.clang-format"
 		]
 	},
-	"recommendations": [
-		"github.vscode-pull-request-github",
-		"xaver.clang-format"
-	]
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "build codal-stm32-DISCO_L475VG_IOT",
+				"args": [],
+				"type": "shell",
+				"command": "source ~/python-venv/codal/bin/activate;${workspaceRoot}/build_codal-stm32-DISCO_L475VG_IOT",
+				"problemMatcher": {
+					"base": "$gcc",
+					"fileLocation": [
+						"absolute"
+					]
+				},
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			},
+			{
+				"label": "build codal-stm32-NUCLEO_F4x1RE",
+				"args": [],
+				"type": "shell",
+				"command": "source ~/python-venv/codal/bin/activate;${workspaceRoot}/build_codal-stm32-NUCLEO_F4x1RE",
+				"problemMatcher": {
+					"base": "$gcc",
+					"fileLocation": [
+						"absolute"
+					]
+				},
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			},
+			{
+				"label": "build codal-stm32-PNUCLEO_WB55RG",
+				"args": [],
+				"type": "shell",
+				"command": "source ~/python-venv/codal/bin/activate;${workspaceRoot}/build_codal-stm32-PNUCLEO_WB55RG",
+				"problemMatcher": {
+					"base": "$gcc",
+					"fileLocation": [
+						"absolute"
+					]
+				},
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			}
+		]
+	}
 }
