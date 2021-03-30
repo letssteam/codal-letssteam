@@ -114,7 +114,7 @@
 				"label": "pull all targets",
 				"args": [],
 				"type": "shell",
-				"command": "../scripts/pull_all",
+				"command": "cd ..;./scripts/pull_all",
 				"problemMatcher": [],
 				"group": "build"
 			},
@@ -122,7 +122,7 @@
 				"label": "tag all targets",
 				"args": [],
 				"type": "shell",
-				"command": "../scripts/tag_all",
+				"command": "cd ..;./scripts/tag_all",
 				"problemMatcher": [],
 				"group": "build"
 			},
@@ -130,7 +130,7 @@
 				"label": "build all targets",
 				"args": [],
 				"type": "shell",
-				"command": "../scripts/build_all",
+				"command": "cd ..;./scripts/build_all",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -143,7 +143,7 @@
 				"label": "build codal-stm32-DISCO_L475VG_IOT",
 				"args": [],
 				"type": "shell",
-				"command": "../scripts/build_codal-stm32-DISCO_L475VG_IOT",
+				"command": "cd ..;./scripts/build_codal-stm32-DISCO_L475VG_IOT",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -156,7 +156,7 @@
 				"label": "build codal-stm32-NUCLEO_F4x1RE",
 				"args": [],
 				"type": "shell",
-				"command": "../scripts/build_codal-stm32-NUCLEO_F4x1RE",
+				"command": "cd ..;./scripts/build_codal-stm32-NUCLEO_F4x1RE",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -169,7 +169,7 @@
 				"label": "build codal-stm32-PNUCLEO_WB55RG",
 				"args": [],
 				"type": "shell",
-				"command": "../scripts/build_codal-stm32-PNUCLEO_WB55RG",
+				"command": "cd ..;./scripts/build_codal-stm32-PNUCLEO_WB55RG",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
