@@ -4,6 +4,21 @@
 			"path": "codal"
 		},
 		{
+			"path": "codal-stm32"
+		},
+		{
+			"path": "codal-core"
+		},
+		{
+			"path": "codal-stm32-DISCO_L475VG_IOT"
+		},
+		{
+			"path": "codal-stm32-PNUCLEO_WB55RG"
+		},
+		{
+			"path": "codal-stm32-NUCLEO_F4x1RE"
+		},
+		{
 			"path": "scripts"
 		},
 	],
@@ -95,11 +110,19 @@
 	"tasks": {
 		"version": "2.0.0",
 		"tasks": [
+					{
+				"label": "pull all targets",
+				"args": [],
+				"type": "shell",
+				"command": "../scripts/pull_all",
+				"problemMatcher": [],
+				"group": "build"
+			},
 			{
 				"label": "tag all targets",
 				"args": [],
 				"type": "shell",
-				"command": "source ~/python-venv/codal/bin/activate;../scripts/tag_all",
+				"command": "../scripts/tag_all",
 				"problemMatcher": [],
 				"group": "build"
 			},
@@ -107,7 +130,7 @@
 				"label": "build all targets",
 				"args": [],
 				"type": "shell",
-				"command": "source ~/python-venv/codal/bin/activate;../scripts/build_all",
+				"command": "../scripts/build_all",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -120,7 +143,7 @@
 				"label": "build codal-stm32-DISCO_L475VG_IOT",
 				"args": [],
 				"type": "shell",
-				"command": "source ~/python-venv/codal/bin/activate;../scripts/build_codal-stm32-DISCO_L475VG_IOT",
+				"command": "../scripts/build_codal-stm32-DISCO_L475VG_IOT",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -133,7 +156,7 @@
 				"label": "build codal-stm32-NUCLEO_F4x1RE",
 				"args": [],
 				"type": "shell",
-				"command": "source ~/python-venv/codal/bin/activate;../scripts/build_codal-stm32-NUCLEO_F4x1RE",
+				"command": "../scripts/build_codal-stm32-NUCLEO_F4x1RE",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -146,7 +169,7 @@
 				"label": "build codal-stm32-PNUCLEO_WB55RG",
 				"args": [],
 				"type": "shell",
-				"command": "source ~/python-venv/codal/bin/activate;../scripts/build_codal-stm32-PNUCLEO_WB55RG",
+				"command": "../scripts/build_codal-stm32-PNUCLEO_WB55RG",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
