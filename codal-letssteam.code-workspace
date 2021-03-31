@@ -4,10 +4,10 @@
 			"path": "codal"
 		},
 		{
-			"path": "codal-stm32"
+			"path": "codal-core"
 		},
 		{
-			"path": "codal-core"
+			"path": "codal-stm32"
 		},
 		{
 			"path": "codal-stm32-DISCO_L475VG_IOT"
@@ -111,7 +111,7 @@
 	"tasks": {
 		"version": "2.0.0",
 		"tasks": [
-					{
+			{
 				"label": "pull all targets",
 				"args": [],
 				"type": "shell",
