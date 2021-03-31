@@ -96,7 +96,8 @@
 			"pinaf_stm32f1.h": "c",
 			"stm32wbxx_hal_gpio_ex.h": "c",
 			"stm32wbxx.h": "c",
-			"stm32wb55xx.h": "c"
+			"stm32wb55xx.h": "c",
+			"chrono": "cpp"
 		},
 		"editor.formatOnSave": true,
 		"files.autoSave": "onFocusChange"
