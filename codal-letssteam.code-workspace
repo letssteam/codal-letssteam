@@ -1,25 +1,31 @@
 {
 	"folders": [
 		{
-			"path": "codal"
+			"path": "."
 		},
 		{
-			"path": "codal-core"
+			"name": "codal",
+			"path": "codal/"
 		},
 		{
-			"path": "codal-stm32"
+			"name": "codal-core",
+			"path": "codal/libraries/codal-core"
 		},
 		{
-			"path": "codal-stm32-DISCO_L475VG_IOT"
+			"name": "codal-stm32",
+			"path": "codal/libraries/codal-stm32"
 		},
 		{
-			"path": "codal-stm32-PNUCLEO_WB55RG"
+			"name": "codal-stm32-DISCO_L475VG_IOT",
+			"path": "codal/libraries/codal-stm32-DISCO_L475VG_IOT"
 		},
 		{
-			"path": "codal-stm32-NUCLEO_F4x1RE"
+			"name": "codal-stm32-PNUCLEO_WB55RG",
+			"path": "codal/libraries/codal-stm32-PNUCLEO_WB55RG"
 		},
 		{
-			"path": "scripts"
+			"name": "codal-stm32-NUCLEO_F4x1RE",
+			"path": "codal/libraries/codal-stm32-NUCLEO_F4x1RE"
 		},
 	],
 	"settings": {
@@ -100,7 +106,10 @@
 			"chrono": "cpp"
 		},
 		"editor.formatOnSave": true,
-		"files.autoSave": "onFocusChange"
+		"files.autoSave": "onFocusChange",
+		"[cpp]": {
+			"editor.defaultFormatter": "xaver.clang-format"
+		},
 	},
 	"extensions": {
 		"recommendations": [
@@ -115,7 +124,7 @@
 				"label": "pull all targets",
 				"args": [],
 				"type": "shell",
-				"command": "cd ..;./scripts/pull_all",
+				"command": "${workspaceFolder}/scripts/pull_all",
 				"problemMatcher": [],
 				"group": "build"
 			},
@@ -123,7 +132,7 @@
 				"label": "tag all targets",
 				"args": [],
 				"type": "shell",
-				"command": "cd ..;./scripts/tag_all",
+				"command": "${workspaceFolder}/scripts/tag_all",
 				"problemMatcher": [],
 				"group": "build"
 			},
@@ -131,7 +140,7 @@
 				"label": "build all targets",
 				"args": [],
 				"type": "shell",
-				"command": "cd ..;./scripts/build_all",
+				"command": "${workspaceFolder}/scripts/build_all",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -144,7 +153,7 @@
 				"label": "build codal-stm32-DISCO_L475VG_IOT",
 				"args": [],
 				"type": "shell",
-				"command": "cd ..;./scripts/build_codal-stm32-DISCO_L475VG_IOT",
+				"command": "${workspaceFolder}/scripts/build_codal-stm32-DISCO_L475VG_IOT",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -157,7 +166,7 @@
 				"label": "build codal-stm32-NUCLEO_F4x1RE",
 				"args": [],
 				"type": "shell",
-				"command": "cd ..;./scripts/build_codal-stm32-NUCLEO_F4x1RE",
+				"command": "${workspaceFolder}/scripts/build_codal-stm32-NUCLEO_F4x1RE",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
@@ -170,7 +179,7 @@
 				"label": "build codal-stm32-PNUCLEO_WB55RG",
 				"args": [],
 				"type": "shell",
-				"command": "cd ..;./scripts/build_codal-stm32-PNUCLEO_WB55RG",
+				"command": "${workspaceFolder}/scripts/build_codal-stm32-PNUCLEO_WB55RG",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [

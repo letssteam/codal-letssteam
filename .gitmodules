@@ -1,0 +1,3 @@
+[submodule "codal"]
+    path = codal
+    url = https://github.com/letssteam/codal.git
