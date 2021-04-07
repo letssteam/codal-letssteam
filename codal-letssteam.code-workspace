@@ -29,8 +29,6 @@
 		},
 	],
 	"settings": {
-		"C_Cpp.loggingLevel": "Debug",
-		"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
 		"C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-gcc",
 		"C_Cpp.default.browse.path": [
 			"${workspaceFolder}/**",
@@ -96,7 +94,6 @@
 	"extensions": {
 		"recommendations": [
 			"ms-vscode.cpptools-extension-pack",
-			"ms-vscode.cmake-tools",
 			"github.vscode-pull-request-github",
 			"marus25.cortex-debug",
 			"xaver.clang-format"
