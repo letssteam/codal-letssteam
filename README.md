@@ -13,7 +13,6 @@ To prepare the working folder, after clone this repository, you need to run the 
 ```sh
 cd codal-letssteam
 scripts/clone-repo
-scripts/create-symbolic-link
 scripts/create-git-hook-pre-commit-format
 ```
 After this step, you can open the workspace on VS Code and use tasks to build a specific codal target.

@@ -121,9 +121,9 @@ readonly my_dir
 
 cd $top_dir
 git clone https://github.com/letssteam/codal.git --recurse-submodules -j8
-git clone https://github.com/letssteam/codal-core.git --recurse-submodules -j8
-git clone https://github.com/letssteam/codal-stm32.git --recurse-submodules -j8
-git clone https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT.git --recurse-submodules -j8
-git clone https://github.com/letssteam/codal-stm32-NUCLEO_F4x1RE.git --recurse-submodules -j8
-git clone https://github.com/letssteam/codal-stm32-PNUCLEO_WB55RG.git --recurse-submodules -j8
+git clone https://github.com/letssteam/codal-core.git --recurse-submodules -j8 codal/libraries/codal-core
+git clone https://github.com/letssteam/codal-stm32.git --recurse-submodules -j8 codal/libraries/codal-stm32
+git clone https://github.com/letssteam/codal-stm32-DISCO_L475VG_IOT.git --recurse-submodules -j8 codal/libraries/codal-stm32-DISCO_L475VG_IOT
+git clone https://github.com/letssteam/codal-stm32-NUCLEO_F4x1RE.git --recurse-submodules -j8 codal/libraries/codal-stm32-NUCLEO_F4x1RE
+git clone https://github.com/letssteam/codal-stm32-PNUCLEO_WB55RG.git --recurse-submodules -j8 codal/libraries/codal-stm32-PNUCLEO_WB55RG
 cd $my_dir
