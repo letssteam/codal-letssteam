@@ -30,14 +30,21 @@
 	],
 	"settings": {
 		"C_Cpp.loggingLevel": "Debug",
-		"C_Cpp.default.includePath": [
+		"C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-gcc",
+		"C_Cpp.default.browse.path": [
+			"${workspaceFolder}/**",
 			"/usr/lib/arm-none-eabi/include/**",
+			"/usr/lib/gcc/arm-none-eabi/9.2.1/include/**"
+		],
+		"C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
+		"C_Cpp.default.includePath": [
 			"${workspaceFolder:codal-core}/inc/core/**",
 			"${workspaceFolder:codal-core}/inc/driver-models/**",
 			"${workspaceFolder:codal-core}/inc/drivers/**",
 			"${workspaceFolder:codal-core}/inc/streams/**",
 			"${workspaceFolder:codal-core}/inc/types/**",
 			"${workspaceFolder:codal-core}/inc/**",
+			"${workspaceFolder:codal-stm32}/asm/**",
 			"${workspaceFolder:codal-stm32}/inc/drivers/**",
 			"${workspaceFolder:codal-stm32}/inc/**",
 			"${workspaceFolder:codal-stm32}/src/stm32/**",
@@ -54,14 +61,24 @@
 			"${workspaceFolder:codal-stm32}/system/Drivers/**",
 			"${workspaceFolder:codal-stm32}/system/CMSIS/CMSIS/Core/**",
 			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/inc/**",
-			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/src/**",
 			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/model/**",
+			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/samples/**",
 			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/inc/**",
-			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/src/**",
 			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/model/**",
+			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/samples/**",
 			"${workspaceFolder:codal-stm32-NUCLEO_F4x1RE}/inc/**",
-			"${workspaceFolder:codal-stm32-NUCLEO_F4x1RE}/src/**",
 			"${workspaceFolder:codal-stm32-NUCLEO_F4x1RE}/model/**",
+			"${workspaceFolder:codal-stm32-NUCLEO_F4x1RE}/samples/**",
+		],
+		"C_Cpp.default.defines": [
+			"STM32L4",
+			"STM32L4xx",
+			"STM32L475xx",
+			"DMESG_SERIAL_DEBUG",
+			"USE_HAL_DRIVER",
+			"DEVICE_SRAM_BASE=0x20000000",
+			"DEVICE_SRAM_END=0x20018000",
+			"DEVICE_STACK_BASE=DEVICE_SRAM_END"
 		],
 		"C_Cpp.default.cStandard": "c17",
 		"C_Cpp.default.cppStandard": "c++20",
@@ -71,6 +88,9 @@
 		},
 		"editor.formatOnSave": true,
 		"files.autoSave": "onFocusChange",
+		"files.associations": {
+			"functional": "cpp"
+		},
 	},
 	"extensions": {
 		"recommendations": [
