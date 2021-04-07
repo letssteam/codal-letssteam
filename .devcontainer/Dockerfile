@@ -27,6 +27,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     gdb-multiarch \
     openocd \
     ncurses-dev \
+    zsh \
     curl && \
     apt-get clean
 
@@ -42,3 +43,7 @@ RUN cd /usr/bin \
     && ln -s pydoc3 pydoc \
     && ln -s python3 python \
     && ln -s python3-config python-config
+
+# Install OhMyZsh
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+
