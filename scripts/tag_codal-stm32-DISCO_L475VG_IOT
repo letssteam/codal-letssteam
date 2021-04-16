@@ -148,5 +148,5 @@ echo \
   }
 }" > codal/codal.json
 
-cd $top_dir/codal
+cd codal
 ./build.py -l

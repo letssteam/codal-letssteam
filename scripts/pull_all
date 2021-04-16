@@ -122,14 +122,14 @@ readonly my_dir
 cd $top_dir
 cd $top_dir/codal
 git pull --ff-only origin main 
-cd $top_dir/codal-core
+cd $top_dir/codal/libraries/codal-core
 git pull --ff-only origin main
-cd $top_dir/codal-stm32
+cd $top_dir/codal/libraries/codal-stm32
 git pull --ff-only origin main
-cd $top_dir/codal-stm32-DISCO_L475VG_IOT
+cd $top_dir/codal/libraries/codal-stm32-DISCO_L475VG_IOT
 git pull --ff-only origin main
-cd $top_dir/codal-stm32-NUCLEO_F4x1RE
+cd $top_dir/codal/libraries/codal-stm32-NUCLEO_F4x1RE
 git pull --ff-only origin main
-cd $top_dir/codal-stm32-PNUCLEO_WB55RG
+cd $top_dir/codal/libraries/codal-stm32-PNUCLEO_WB55RG
 git pull --ff-only origin main
 cd $my_dir
