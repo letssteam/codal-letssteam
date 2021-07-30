@@ -4,8 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${default}"
-            ],
-            "compileCommands": "${workspaceFolder}/codal/build/compile_commands.json"
+            ]
         }
     ],
     "version": 4
