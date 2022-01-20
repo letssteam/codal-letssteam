@@ -16,10 +16,18 @@
 	],
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
-		"terminal.integrated.shell.linux": "/bin/zsh"
+		"terminal.integrated.profiles.linux": {
+			"zsh (login)": {
+				"path": "zsh",
+				"args": [
+					"-l"
+				]
+			}
+		}
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"github.vscode-pull-request-github",
 		"ms-python.python",
 		"ms-vscode.cpptools-extension-pack",
 		"marus25.cortex-debug",
