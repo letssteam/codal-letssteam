@@ -20,6 +20,10 @@
 			"path": "codal/libraries/codal-stm32-DISCO_L475VG_IOT"
 		},
 		{
+			"name": "codal-stm32-STEAM32_WB55RG",
+			"path": "codal/libraries/codal-stm32-STEAM32_WB55RG"
+		},
+		{
 			"name": "codal-stm32-PNUCLEO_WB55RG",
 			"path": "codal/libraries/codal-stm32-PNUCLEO_WB55RG"
 		},
@@ -69,6 +73,9 @@
 			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/inc/**",
 			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/model/**",
 			"${workspaceFolder:codal-stm32-DISCO_L475VG_IOT}/samples/**",
+			"${workspaceFolder:codal-stm32-STEAM32_WB55RG}/inc/**",
+			"${workspaceFolder:codal-stm32-STEAM32_WB55RG}/model/**",
+			"${workspaceFolder:codal-stm32-STEAM32_WB55RG}/samples/**",
 			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/inc/**",
 			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/model/**",
 			"${workspaceFolder:codal-stm32-PNUCLEO_WB55RG}/samples/**",
@@ -174,7 +181,10 @@
 			"streambuf": "cpp",
 			"cinttypes": "cpp",
 			"typeinfo": "cpp",
-			"hw_config.h": "c"
+			"hw_config.h": "c",
+			"peripheralpins.h": "c",
+			"cstring": "cpp",
+			"spi_com.h": "c"
 		},
 		"C_Cpp.loggingLevel": "Debug",
 		"C_Cpp.intelliSenseEngineFallback": "Enabled",
@@ -250,6 +260,19 @@
 				"args": [],
 				"type": "shell",
 				"command": "${workspaceFolder}/scripts/build_codal-stm32-PNUCLEO_WB55RG",
+				"problemMatcher": {
+					"base": "$gcc",
+					"fileLocation": [
+						"absolute"
+					]
+				},
+				"group": "build"
+			},
+			{
+				"label": "build codal-stm32-STEAM32_WB55RG",
+				"args": [],
+				"type": "shell",
+				"command": "${workspaceFolder}/scripts/build_codal-stm32-STEAM32_WB55RG",
 				"problemMatcher": {
 					"base": "$gcc",
 					"fileLocation": [
