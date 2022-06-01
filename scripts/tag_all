@@ -123,3 +123,4 @@ cd $top_dir
 scripts/tag_codal-stm32-DISCO_L475VG_IOT
 scripts/tag_codal-stm32-NUCLEO_F4x1RE
 scripts/tag_codal-stm32-PNUCLEO_WB55RG
+scripts/tag_codal-stm32-STEAM32_WB55RG

@@ -132,4 +132,6 @@ cd $top_dir/codal/libraries/codal-stm32-NUCLEO_F4x1RE
 git pull --ff-only origin main
 cd $top_dir/codal/libraries/codal-stm32-PNUCLEO_WB55RG
 git pull --ff-only origin main
+cd $top_dir/codal/libraries/codal-stm32-STEAM32_WB55RG
+git pull --ff-only origin main
 cd $my_dir
