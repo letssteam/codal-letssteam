@@ -1,0 +1,28 @@
+name: build-target
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  repository_dispatch:
+    types: [trigger-workflow]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: letssteam/makecode-toolchain:latest
+      options: --user 1001 --security-opt no-new-privileges
+    steps:
+      - uses: actions/checkout@v4
+      - run: make setup
+      - run: make build_all
+  notify:
+    name: Notify failed build
+    needs: [build]
+    if: failure() && github.event.pull_request == null
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jayqi/failed-build-issue-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
