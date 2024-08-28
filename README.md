@@ -1,6 +1,6 @@
 # Codal Let's STEAM tooling
-This repository is the tooling to ease the life of the Let's STEAM development team. It constain some scripts to support the life cycle of a codal project with many target.
 
+This repository is the tooling to ease the life of the Let's STEAM development team. It constain some scripts to support the life cycle of a codal project with many target.
 
 ## Overview
 
@@ -9,10 +9,13 @@ The codal runtime provides an easy to use environment for programming the board 
 In addition to supporting development in C/C++, the runtime is also designed specifically to support higher level languages provided by our partners that target physical computing and computer science education. It is currently used as a support library for Microsoft MakeCode.
 
 ## Installation
+
 To prepare the working folder, after clone this repository, you need to run the following commands :
+
 ```sh
 cd codal-letssteam
-scripts/clone-repo
+make setup
 scripts/create-git-hook-pre-commit-format
 ```
+
 After this step, you can open the workspace on VS Code and use tasks to build a specific codal target.

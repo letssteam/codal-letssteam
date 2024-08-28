@@ -1,40 +1,68 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.163.1/containers/cpp
 {
-	"name": "C++",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
-	"mounts": [
-		"type=bind,source=/dev/bus/usb,target=/dev/bus/usb"
-	],
-	"runArgs": [
-		"--cap-add=SYS_PTRACE",
-		"--security-opt",
-		"seccomp=unconfined",
-		"--privileged"
-	],
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"terminal.integrated.profiles.linux": {
-			"zsh": {
-				"path": "zsh",
-			}
-		},
-		"terminal.integrated.defaultProfile.linux": "zsh"
-	},
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"github.vscode-pull-request-github",
-		"ms-python.python",
-		"ms-vscode.cpptools-extension-pack",
-		"marus25.cortex-debug",
-		"xaver.clang-format",
-	],
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "gcc -v",
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  "name": "C++",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "capAdd": ["SYS_PTRACE"],
+  "securityOpt": ["seccomp=unconfined"],
+  "privileged": true,
+  "mounts": ["type=bind,source=/dev/bus/usb,target=/dev/bus/usb"],
+  // Set *default* container specific settings.json values on container create.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true,
+      "username": "vscode"
+    }
+  },
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "files.watcherExclude": {
+          "**/.git/objects/**": true,
+          "**/built/**": true
+        },
+        "search.exclude": {},
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "zsh"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.minimap.enabled": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[cpp]": {
+          "editor.defaultFormatter": "xaver.clang-format"
+        },
+        "editor.rulers": [130],
+        "javascript.validate.enable": false,
+        "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+        "typescript.format.semicolons": "insert",
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "eslint.validate": ["typescript", "typescriptreact"]
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "github.vscode-pull-request-github",
+        "marus25.cortex-debug",
+        "ms-python.python",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools-extension-pack",
+        "xaver.clang-format"
+      ]
+    }
+  },
+  "postCreateCommand": "make setup",
+  "remoteUser": "vscode"
 }
