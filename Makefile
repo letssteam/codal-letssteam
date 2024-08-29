@@ -4,6 +4,7 @@ ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 CODAL_TARGETS := codal-stm32-DISCO_L475VG_IOT codal-stm32-PNUCLEO_WB55RG codal-stm32-STEAM32_WB55RG
 CODAL_LIBRARIES := codal-core codal-stm32
 CODAL := codal
+DEFAULT_CODAL_TARGET := codal-stm32-STEAM32_WB55RG
 
 REPOS = $(CODAL) $(CODAL_LIBRARIES) $(CODAL_TARGETS)
 
@@ -28,7 +29,7 @@ define _build_codal_target
 	REPO_PATH="codal/libraries/$(1)"
 	REPO_URL="$(BASE_URL)/$(1)"
 
-	$(call _remove_directory_if_exist,codal/sample)
+	$(call _remove_directory_if_exist,codal/samples)
 	$(call _remove_directory_if_exist,codal/source)
 	$(call _remove_file_if_exist,codal/codal.json)
 
@@ -48,7 +49,7 @@ define _build_codal_target
 endef
 
 .PHONY: build
-build: $(REPOS)
+build: $(CODAL)
 	cd codal
 	./build.py -d
 
@@ -128,12 +129,63 @@ all : setup
 .PHONY : setup
 setup : |clean clone_all
 
+define _clean
+	$(call _remove_directory_if_exist,codal/build)
+	$(call _remove_directory_if_exist,codal/samples)
+	$(call _remove_directory_if_exist,codal/source)
+	$(call _remove_file_if_exist,codal/codal.json)
+endef
+
 .PHONY: clean
 clean:
-	@$(call _remove_directory_if_exist,codal)
+	$(call _clean)
+
+define equals
+$(and $(findstring $1,$2),$(findstring $2,$1))
+endef
+
+define _check_git_repository_is_clean
+
+	REPO_DIR=$(if $(filter codal,$1),codal,$(if $(filter-out codal,$1),$1,codal/libraries/$1))
+	
+	if [ -d $$REPO_DIR ] ; then 
+		echo "Entering $$REPO_DIR"
+		cd $$REPO_DIR
+
+		git update-index -q --ignore-submodules --refresh
+
+		if ! git diff-files --quiet --ignore-submodules; then
+			echo "There are uncomitted changes in the repository $$REPO_DIR"
+			exit 1
+		fi
+		
+		if ! git diff-index --cached --quiet --ignore-submodules HEAD --; then
+			echo "There are uncomitted changes in the repository $$REPO_DIR"
+			exit 1
+		fi
+
+		cd $(ROOT_DIR)
+	else
+		echo "$$REPO_DIR is not a directory"
+		exit 1
+	fi
+
+endef
+
+define _check_git_repositories_are_clean
+	$(foreach repo,$(REPOS), $(call _check_git_repository_is_clean,$(repo)))
+endef
+
+
+.PHONY:check-git-clean
+check-git-clean:
+	$(call _check_git_repositories_are_clean)
+
+
+.PHONY: deepclean
+deepclean:check-git-clean
+	$(call _remove_directory_if_exist,codal)
 	
 .PHONY: list
 list:
 	@LC_ALL=C $(MAKE) -pRrq -f $(firstword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|$$)/,/(^|\n)# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | grep -E -v -e '^[^[:alnum:]]' -e '^$@$$'
-# IMPORTANT: The line above must be indented by (at least one) 
-#            *actual TAB character* - *spaces* do *not* work.
