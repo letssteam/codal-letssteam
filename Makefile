@@ -19,6 +19,7 @@ define _remove_file_if_exist
 		echo "Remove $1" 
 		rm -f $1
 	fi
+	
 endef
 
 define _remove_directory_if_exist
@@ -26,15 +27,21 @@ define _remove_directory_if_exist
 		echo "Remove directory $1" 
 		rm -Rf $1
 	fi
+
+endef
+
+# Définir la macro pour obtenir le chemin correct
+define _get_repo_path
+$(if $(filter /%,$1),$1,$(if $(filter codal,$1),codal,$(if $(filter $(CODAL_TARGETS) $(CODAL_LIBRARIES),$1),codal/libraries/$1,$1)))
 endef
 
 # Macro pour la création du fichier codal.json d'une cible Codal spécifique
-define _configuring_current_codal_target
-	echo "Configuring $(1) as current target"
+define _configure_current_codal_target
+	echo "Configuring $1 as current target"
 
 	# Création du fichier de configuration codal.json
 	
-	REPO_NAME="$(strip $(1))"
+	REPO_NAME="$(strip $1)"
 	REPO_PATH="codal/libraries/$$REPO_NAME"
 	REPO_URL="$(BASE_URL)/$$REPO_NAME"
 
@@ -48,6 +55,7 @@ define _configuring_current_codal_target
 		\"dev\": true
 	}
 	}" > codal/codal.json
+
 endef
 
 define _build_current_codal_target
@@ -59,6 +67,7 @@ define _build_current_codal_target
 		echo "$(CODAL)/codal.json does not exist ! Impossible to build"
 		exit 1
 	fi
+
 endef
 
 # Macro pour la construction d'une cible Codal spécifique
@@ -69,7 +78,7 @@ define _build_codal_target
 	$(call _remove_file_if_exist,codal/codal.json)
 
 	# Création du fichier de configuration codal.json
-	$(call _configuring_current_codal_target, $1)
+	$(call _configure_current_codal_target, $1)
 
 	# Lancer la construction
 	$(call _build_current_codal_target)
@@ -79,8 +88,9 @@ endef
 define _configuring_default_codal_target
 	if [ ! -f $@ ]; then
 		echo "Configuring the default target: $(DEFAULT_CODAL_TARGET)"
-		$(call _configuring_current_codal_target, $(DEFAULT_CODAL_TARGET))
+		$(call _configure_current_codal_target, $(DEFAULT_CODAL_TARGET))
 	fi
+
 endef
 
 # Cible de build de la cible actuelle (si aucune n'est définie c'est la cible par défaut qui sera construite)
@@ -94,8 +104,8 @@ $(CODAL)/codal.json:
 
 # Création des cibles de build pour chaque target de Codal
 define _build_codal_target_template
-.PHONY: build_$(1)
-build_$(1): $(if $(filter codal,$1),codal,codal/libraries/$1)
+.PHONY: build_$1
+build_$1: $(CODAL) $(foreach library,$(CODAL_LIBRARIES),$(call _get_repo_path,$(library))) $(call _get_repo_path,$1)
 	@$$(call _build_codal_target,$$(strip $$(subst build_,,$$@)))
 
 endef
@@ -108,8 +118,8 @@ build_all: |$(foreach target,$(CODAL_TARGETS),build_$(target))
 
 # Tagging des cibles après build
 define _tag_codal_target_template
-.PHONY: tag_$(1)
-tag_$(1): build_$(1)
+.PHONY: tag_$1
+tag_$1: build_$1
 	@cd $(CODAL)
 	./build.py -l
 
@@ -122,7 +132,7 @@ tag_all: |$(foreach target,$(CODAL_TARGETS),tag_$(target))
 
 # Pull des dépôts pour les mettre à jour
 define _pull_repo
-	REPO_DIR=$(if $(filter codal,$1),codal,codal/libraries/$1)
+	REPO_DIR=$(call _get_repo_path,$1)
 	cd $$REPO_DIR
 	git pull --ff-only origin main
 	cd $(ROOT_DIR)
@@ -131,9 +141,9 @@ endef
 
 # Macro de définition des cibles de pull pour chaque dépôt
 define _pull_codal_repo_template
-.PHONY: pull_$(1)
-pull_$(1):$(if $(filter codal,$1),codal,codal/libraries/$1)
-	@$$(call _pull_repo,$(1))
+.PHONY: pull_$1
+pull_$1:$(call _get_repo_path,$1)
+	@$$(call _pull_repo,$1)
 
 endef
 
@@ -144,7 +154,7 @@ pull_all: |$(foreach repo,$(REPOS),pull_$(repo))
 
 # Clonage des dépôts
 define _clone_repo
-	REPO_DIR=$(if $(filter codal,$1),codal,codal/libraries/$1)
+	REPO_DIR=$(call _get_repo_path,$1)
 	if [ -d "$$REPO_DIR" ]; then
 		echo "Repository $1 already cloned in $$REPO_DIR"
 	else
@@ -156,11 +166,11 @@ endef
 
 # Cibles de clonage pour chaque dépôt
 define _clone_codal_repo_template
-.PHONY: clone_$(1)
-clone_$(1):$(if $(filter codal,$(1)),codal,codal/libraries/$(1))
+.PHONY: clone_$1
+clone_$1:$(call _get_repo_path,$1)
 
-$(if $(filter codal,$(1)),codal,codal/libraries/$(1)):
-	@$$(call _clone_repo,$(1))
+$(call _get_repo_path,$1):
+	@$$(call _clone_repo,$1)
 
 endef
 
@@ -184,7 +194,7 @@ clean:
 
 # Vérification de l'état des dépôts pour garantir qu'il n'y a pas de modifications non commitées
 define _check_git_repository_is_clean
-	REPO_DIR=$(if $(filter codal,$1),codal,$(if $(filter-out codal,$1),$1,codal/libraries/$1))
+	REPO_DIR=$(call _get_repo_path,$1)
 	
 	if [ -d $$REPO_DIR ] ; then 
 		echo "Entering $$REPO_DIR"
@@ -204,8 +214,7 @@ define _check_git_repository_is_clean
 
 		cd $(ROOT_DIR)
 	else
-		echo "$$REPO_DIR is not a directory"
-		exit 1
+		echo "check-git-clean: $$REPO_DIR is not a directory."
 	fi
 
 endef
