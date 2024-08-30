@@ -184,7 +184,6 @@ define _clean
 	$(call _remove_directory_if_exist,codal/build)
 	$(call _remove_directory_if_exist,codal/samples)
 	$(call _remove_directory_if_exist,codal/source)
-	$(call _remove_file_if_exist,codal/codal.json)
 
 endef
 
