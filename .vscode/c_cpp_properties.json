@@ -1,11 +1,8 @@
 {
-    "configurations": [
-        {
-            "name": "codal-letssteam",
-            "includePath": [
-                "${default}"
-            ]
-        }
-    ],
-    "version": 4
+  "configurations": [
+    {
+      "name": "codal-letssteam"
+    }
+  ],
+  "version": 4
 }
