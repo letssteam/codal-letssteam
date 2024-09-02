@@ -286,6 +286,34 @@
           "fileLocation": ["absolute"]
         },
         "group": "build"
+      },
+      {
+        "label": "flash",
+        "args": [],
+        "type": "shell",
+        "command": "cd ../..;openocd -s /usr/share/openocd/scripts/ -s ${workspaceFolder}/scripts/ -f openocd.cfg -c 'program build/STM32 verify reset exit'; sleep 6",
+        "dependsOn": ["build"],
+        "presentation": {
+          "reveal": "never"
+        },
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "flash_pyocd",
+        "args": [],
+        "type": "shell",
+        "command": "cd ../..;pyocd flash STM32.hex",
+        "dependsOn": ["build"],
+        "presentation": {
+          "reveal": "never"
+        },
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        }
       }
     ]
   }
