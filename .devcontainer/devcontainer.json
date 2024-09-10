@@ -9,6 +9,10 @@
   "securityOpt": ["seccomp=unconfined"],
   "privileged": true,
   "mounts": ["type=bind,source=/dev/bus/usb,target=/dev/bus/usb"],
+
+  "runArgs": [
+    "--device=/dev/bus/usb"
+  ],
   // Set *default* container specific settings.json values on container create.
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -16,7 +20,8 @@
       "installOhMyZsh": true,
       "upgradePackages": true,
       "username": "vscode"
-    }
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "customizations": {
     // Configure properties specific to VS Code.
@@ -59,10 +64,12 @@
         "ms-python.python",
         "ms-vscode.cmake-tools",
         "ms-vscode.cpptools-extension-pack",
-        "xaver.clang-format"
+        "xaver.clang-format",
+        "augustocdias.tasks-shell-input"
       ]
     }
   },
-  "postCreateCommand": "make setup",
+  "postAttachCommand": "sudo /lib/systemd/systemd-udevd --daemon",
+  "postCreateCommand": "make setup build",
   "remoteUser": "vscode"
 }
