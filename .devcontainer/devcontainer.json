@@ -10,9 +10,7 @@
   "privileged": true,
   "mounts": ["type=bind,source=/dev/bus/usb,target=/dev/bus/usb"],
 
-  "runArgs": [
-    "--device=/dev/bus/usb"
-  ],
+  "runArgs": ["--device=/dev/bus/usb"],
   // Set *default* container specific settings.json values on container create.
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -71,5 +69,6 @@
   },
   "postAttachCommand": "sudo /lib/systemd/systemd-udevd --daemon",
   "postCreateCommand": "make setup build",
+  "postStartCommand": "pyocd pack install STM32WB55RGVx && pyocd pack install STM32L475VGTx",
   "remoteUser": "vscode"
 }

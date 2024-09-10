@@ -295,7 +295,7 @@
         "options": { "cwd": "${workspaceFolder:codal}" },
         "dependsOn": ["build current target"],
         "presentation": {
-          "reveal": "never"
+          "reveal": "silent"
         },
         "group": {
           "kind": "test",
@@ -310,7 +310,7 @@
         "options": { "cwd": "${workspaceFolder:codal}" },
         "dependsOn": ["build current target"],
         "presentation": {
-          "reveal": "never"
+          "reveal": "silent"
         },
         "group": {
           "kind": "test",
