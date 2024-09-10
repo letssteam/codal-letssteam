@@ -10,7 +10,7 @@ CODAL := codal
 DEFAULT_CODAL_TARGET := codal-stm32-STEAM32_WB55RG
 
 # Références aux dépôts pour clonage et mise à jour
-REPOS = $(CODAL) $(CODAL_LIBRARIES) $(CODAL_TARGETS)
+REPOS := $(CODAL) $(CODAL_LIBRARIES) $(CODAL_TARGETS)
 BASE_URL := https://github.com/letssteam
 
 # Macros utilitaires pour la gestion des fichiers et répertoires
@@ -30,9 +30,25 @@ define _remove_directory_if_exist
 
 endef
 
-# Définir la macro pour obtenir le chemin correct
+define _copy_directory_if_not_exist
+	if [ -d $1 ] ; then 
+		if [ ! -d $2/$1 ] ; then
+			echo "Copy directory $1 in $2" 
+			cp -r $1 $2
+		fi
+	fi
+
+endef
+
+
+# Macro pour obtenir le chemin d'une target à partir de son nom
 define _get_repo_path
 $(if $(filter /%,$1),$1,$(if $(filter codal,$1),codal,$(if $(filter $(CODAL_TARGETS) $(CODAL_LIBRARIES),$1),codal/libraries/$1,$1)))
+endef
+
+# Macro pour récupérer le nom de la target actuellement configurée dans le fichier codal.json s'il existe
+define _get_current_codal_target
+$(shell TARGET=$$(jq -r .target.name $(value CODAL)/codal.json);  if [ -z $$TARGET ]; then echo $(value DEFAULT_CODAL_TARGET); else echo $$TARGET; fi )
 endef
 
 # Macro pour la création du fichier codal.json d'une cible Codal spécifique
@@ -44,6 +60,8 @@ define _configure_current_codal_target
 	REPO_NAME="$(strip $1)"
 	REPO_PATH="codal/libraries/$$REPO_NAME"
 	REPO_URL="$(BASE_URL)/$$REPO_NAME"
+
+	$(call _copy_directory_if_not_exist,$$REPO_PATH/scripts,$(CODAL))
 
 	echo \
 	"{
@@ -58,14 +76,12 @@ define _configure_current_codal_target
 
 endef
 
-define _build_current_codal_target
-	if [ -f $(CODAL)/codal.json ]; then
-		echo "Building current target"
-		cd $(CODAL) 
-		./build.py -d
-	else
-		echo "$(CODAL)/codal.json does not exist ! Impossible to build"
-		exit 1
+# Macro pour configurer la target par défaut si le fichier codal.json n'existe pas
+
+define _configure_default_codal_target
+	if [ ! -f $1 ]; then
+		echo "Configuring the default target: $(DEFAULT_CODAL_TARGET)"
+		$(call _configure_current_codal_target,$(DEFAULT_CODAL_TARGET))
 	fi
 
 endef
@@ -75,32 +91,38 @@ define _build_codal_target
 	# Nettoyage des anciens fichiers de configuration et exemples
 	$(call _remove_directory_if_exist,codal/samples)
 	$(call _remove_directory_if_exist,codal/source)
+	$(call _remove_directory_if_exist,codal/scripts)
+
 	$(call _remove_file_if_exist,codal/codal.json)
 
 	# Création du fichier de configuration codal.json
-	$(call _configure_current_codal_target, $1)
+	$(call _configure_current_codal_target,$1)
 
 	# Lancer la construction
 	$(call _build_current_codal_target)
 
 endef
 
-define _configuring_default_codal_target
-	if [ ! -f $@ ]; then
-		echo "Configuring the default target: $(DEFAULT_CODAL_TARGET)"
-		$(call _configure_current_codal_target, $(DEFAULT_CODAL_TARGET))
+define _build_current_codal_target
+	if [ -f $(CODAL)/codal.json ]; then
+		echo "Building $(call _get_current_codal_target)"
+		cd $(CODAL) 
+		./build.py -d
+	else
+		echo "$(CODAL)/codal.json does not exist ! Impossible to build"
+		exit 1
 	fi
 
 endef
 
+# Génère le fichier codal.json uniquement s'il n'existe pas déjà 
+$(CODAL)/codal.json:
+	@$(call _configure_default_codal_target,$@)
+
 # Cible de build de la cible actuelle (si aucune n'est définie c'est la cible par défaut qui sera construite)
 .PHONY: build
 build: $(CODAL) $(CODAL)/codal.json
-	@$(call _build_current_codal_target)
-
-# Génère codal.json uniquement si le fichier n'existe pas déjà 
-$(CODAL)/codal.json:
-	@$(call _configuring_default_codal_target)
+	@$(call _build_codal_target,$(call _get_current_codal_target))
 
 # Création des cibles de build pour chaque target de Codal
 define _build_codal_target_template
@@ -184,6 +206,7 @@ define _clean
 	$(call _remove_directory_if_exist,codal/build)
 	$(call _remove_directory_if_exist,codal/samples)
 	$(call _remove_directory_if_exist,codal/source)
+	$(call _remove_directory_if_exist,codal/scripts)
 
 endef
 
@@ -238,7 +261,7 @@ deepclean:check-git-clean
 all : setup
 
 .PHONY : setup
-setup : |clean clone_all
+setup : |clone_all build
 	
 # Affiche toutes les cibles disponibles dans le Makefile
 .PHONY: list
