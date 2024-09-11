@@ -10,7 +10,11 @@
   "privileged": true,
   "mounts": ["type=bind,source=/dev/bus/usb,target=/dev/bus/usb"],
 
-  "runArgs": ["--device=/dev/bus/usb"],
+  "runArgs": [
+    "--device=/dev/bus/usb",
+    "--device=/dev/ttyACM0",
+    "--device=/dev/hidraw1"
+  ],
   // Set *default* container specific settings.json values on container create.
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -152,7 +156,7 @@
       ]
     }
   },
-  "postAttachCommand": "make setup",
+  "postAttachCommand": "make setup build",
   "postCreateCommand": "sudo /lib/systemd/systemd-udevd --daemon",
   "remoteUser": "vscode"
 }
