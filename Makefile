@@ -1,4 +1,5 @@
 .ONESHELL:
+.DEFAULT_GOAL := build
 
 # Réportoire de départ du build
 ROOT_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
@@ -256,12 +257,12 @@ check-git-clean:
 deepclean:check-git-clean
 	@$(call _remove_directory_if_exist,codal)
 
-# Setup général incluant le nettoyage et le clonage
 .PHONY : all
-all : setup
+all : clean setup build
 
+# Setup général incluant le clonage
 .PHONY : setup
-setup : |clone_all build
+setup : clone_all
 	
 # Affiche toutes les cibles disponibles dans le Makefile
 .PHONY: list
