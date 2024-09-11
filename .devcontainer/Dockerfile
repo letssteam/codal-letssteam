@@ -13,3 +13,7 @@ RUN apt-get update && \
 
 RUN adduser vscode dialout && \
     adduser vscode plugdev
+
+USER vscode
+RUN pyocd pack install STM32WB55RGVx && \
+    pyocd pack install STM32L475VGTx

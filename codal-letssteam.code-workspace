@@ -29,12 +29,11 @@
     }
   ],
   "settings": {
-    "C_Cpp.default.compilerPath": "/arm_toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
     "C_Cpp.default.browse.path": [
       "${workspaceFolder}/**",
       "/arm_toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/arm-none-eabi/include/**"
     ],
-    "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
+
     "C_Cpp.default.includePath": [
       "${workspaceFolder:codal}/utils/cmake/toolchains/ARM_GCC/**",
       "${workspaceFolder:codal-core}/inc/core/**",
@@ -116,64 +115,10 @@
       "I2C_IRQ_PRIO=0",
       "DEXTI_IRQ_PRIO=0"
     ],
-    "C_Cpp.default.cStandard": "c17",
-    "C_Cpp.default.cppStandard": "c++17",
-    "C_Cpp.default.intelliSenseMode": "gcc-arm",
-    "[cpp]": {
-      "editor.defaultFormatter": "xaver.clang-format"
-    },
-    "editor.formatOnSave": true,
-    "files.autoSave": "onFocusChange",
+
     "files.associations": {
-      "functional": "cpp",
       "digital_io.h": "c",
       "pinconfigured.h": "c",
-      "array": "cpp",
-      "atomic": "cpp",
-      "bit": "cpp",
-      "*.tcc": "cpp",
-      "cctype": "cpp",
-      "clocale": "cpp",
-      "cmath": "cpp",
-      "compare": "cpp",
-      "concepts": "cpp",
-      "cstdarg": "cpp",
-      "cstddef": "cpp",
-      "cstdint": "cpp",
-      "cstdio": "cpp",
-      "cstdlib": "cpp",
-      "cwchar": "cpp",
-      "cwctype": "cpp",
-      "deque": "cpp",
-      "map": "cpp",
-      "unordered_map": "cpp",
-      "vector": "cpp",
-      "exception": "cpp",
-      "algorithm": "cpp",
-      "iterator": "cpp",
-      "memory": "cpp",
-      "memory_resource": "cpp",
-      "numeric": "cpp",
-      "optional": "cpp",
-      "random": "cpp",
-      "string": "cpp",
-      "string_view": "cpp",
-      "system_error": "cpp",
-      "tuple": "cpp",
-      "type_traits": "cpp",
-      "utility": "cpp",
-      "initializer_list": "cpp",
-      "iosfwd": "cpp",
-      "iostream": "cpp",
-      "istream": "cpp",
-      "limits": "cpp",
-      "new": "cpp",
-      "ostream": "cpp",
-      "ranges": "cpp",
-      "stdexcept": "cpp",
-      "streambuf": "cpp",
-      "cinttypes": "cpp",
-      "typeinfo": "cpp",
       "hw_config.h": "c",
       "peripheralpins.h": "c",
       "cstring": "cpp",
@@ -194,20 +139,31 @@
       "stm32l4xx_hal.h": "c",
       "stm32l4xx_hal_conf.h": "c",
       "variant.h": "c"
-    },
-    "C_Cpp.loggingLevel": "Debug",
-    "C_Cpp.intelliSenseEngineFallback": "enabled"
+    }
   },
   "extensions": {
     "recommendations": [
-      "dbaeumer.vscode-eslint",
+      "ms-vscode.cpptools-extension-pack",
+      "xaver.clang-format",
+      "amiralizadeh9480.cpp-helper",
+
+      "marus25.cortex-debug",
+      "dan-c-underwood.arm",
+      "keroc.hex-fmt",
+      "trond-snekvik.gnu-mapfiles",
+      "ZixuanWang.linkerscript",
       "esbenp.prettier-vscode",
       "github.vscode-pull-request-github",
-      "marus25.cortex-debug",
       "ms-python.python",
+      "augustocdias.tasks-shell-input",
+      "rioj7.command-variable"
+    ],
+    "unwantedRecommendations": [
+      "llvm-vs-code-extensions.vscode-clangd",
+      "twxs.cmake",
       "ms-vscode.cmake-tools",
-      "ms-vscode.cpptools-extension-pack",
-      "xaver.clang-format"
+      "ms-azuretools.vscode-docker",
+      "ms-vscode.makefile-tools"
     ]
   },
   "tasks": {
@@ -236,7 +192,7 @@
         "command": "make build",
         "problemMatcher": {
           "base": "$gcc",
-          "fileLocation": ["absolute"]
+          "fileLocation": "absolute"
         },
         "group": {
           "kind": "build",
@@ -250,7 +206,7 @@
         "command": "make build_all",
         "problemMatcher": {
           "base": "$gcc",
-          "fileLocation": ["absolute"]
+          "fileLocation": "absolute"
         },
         "group": "build"
       },
@@ -261,7 +217,7 @@
         "command": "make build_codal-stm32-DISCO_L475VG_IOT",
         "problemMatcher": {
           "base": "$gcc",
-          "fileLocation": ["absolute"]
+          "fileLocation": "absolute"
         },
         "group": "build"
       },
@@ -272,7 +228,7 @@
         "command": "make build_codal-stm32-PNUCLEO_WB55RG",
         "problemMatcher": {
           "base": "$gcc",
-          "fileLocation": ["absolute"]
+          "fileLocation": "absolute"
         },
         "group": "build"
       },
@@ -283,7 +239,7 @@
         "command": "make build_codal-stm32-STEAM32_WB55RG",
         "problemMatcher": {
           "base": "$gcc",
-          "fileLocation": ["absolute"]
+          "fileLocation": "absolute"
         },
         "group": "build"
       },
@@ -313,8 +269,7 @@
           "reveal": "silent"
         },
         "group": {
-          "kind": "test",
-          "isDefault": true
+          "kind": "test"
         }
       }
     ]

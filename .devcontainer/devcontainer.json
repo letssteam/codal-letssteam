@@ -37,38 +37,122 @@
           }
         },
         "terminal.integrated.defaultProfile.linux": "zsh",
+
         "editor.minimap.enabled": false,
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true,
+        "editor.rulers": [130],
+
+        "files.autoSave": "onFocusChange",
+        "files.associations": {
+          "*.c": "c",
+          "*.h": "c",
+          "*.inc": "c",
+          "*.s": "arm",
+          "*.S": "arm",
+          "*.asm": "arm",
+          "*.ld": "linkerscript",
+          "functional": "cpp",
+          "array": "cpp",
+          "atomic": "cpp",
+          "bit": "cpp",
+          "*.tcc": "cpp",
+          "cctype": "cpp",
+          "clocale": "cpp",
+          "cmath": "cpp",
+          "compare": "cpp",
+          "concepts": "cpp",
+          "cstdarg": "cpp",
+          "cstddef": "cpp",
+          "cstdint": "cpp",
+          "cstdio": "cpp",
+          "cstdlib": "cpp",
+          "cwchar": "cpp",
+          "cwctype": "cpp",
+          "deque": "cpp",
+          "map": "cpp",
+          "unordered_map": "cpp",
+          "vector": "cpp",
+          "exception": "cpp",
+          "algorithm": "cpp",
+          "iterator": "cpp",
+          "memory": "cpp",
+          "memory_resource": "cpp",
+          "numeric": "cpp",
+          "optional": "cpp",
+          "random": "cpp",
+          "string": "cpp",
+          "string_view": "cpp",
+          "system_error": "cpp",
+          "tuple": "cpp",
+          "type_traits": "cpp",
+          "utility": "cpp",
+          "initializer_list": "cpp",
+          "iosfwd": "cpp",
+          "iostream": "cpp",
+          "istream": "cpp",
+          "limits": "cpp",
+          "new": "cpp",
+          "ostream": "cpp",
+          "ranges": "cpp",
+          "stdexcept": "cpp",
+          "streambuf": "cpp",
+          "cinttypes": "cpp",
+          "typeinfo": "cpp"
+        },
+
+        "[cmake]": {
+          "editor.tabSize": 8,
+          "editor.insertSpaces": false
+        },
+        "[makefile]": {
+          "editor.tabSize": 8
+        },
         "[typescript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "[cpp]": {
           "editor.defaultFormatter": "xaver.clang-format"
         },
-        "editor.rulers": [130],
-        "javascript.validate.enable": false,
-        "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-        "typescript.format.semicolons": "insert",
-        "typescript.tsdk": "node_modules/typescript/lib",
-        "eslint.validate": ["typescript", "typescriptreact"]
+
+        "C_Cpp.default.compilerPath": "/arm_toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
+        "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
+
+        "C_Cpp.default.cStandard": "c23",
+        "C_Cpp.default.cppStandard": "c++23",
+        "C_Cpp.default.intelliSenseMode": "gcc-arm",
+        "C_Cpp.loggingLevel": "Debug",
+        "C_Cpp.intelliSenseEngineFallback": "enabled",
+        "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+
+        "cmake.generator": "Unix Makefiles",
+        "cmake.sourceDirectory": "${workspaceFolder:codal}",
+        "cmake.configureOnOpen": false
       },
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "github.vscode-pull-request-github",
-        "marus25.cortex-debug",
-        "ms-python.python",
-        "ms-vscode.cmake-tools",
         "ms-vscode.cpptools-extension-pack",
         "xaver.clang-format",
-        "augustocdias.tasks-shell-input"
+        "amiralizadeh9480.cpp-helper",
+
+        "marus25.cortex-debug",
+        "dan-c-underwood.arm",
+        "keroc.hex-fmt",
+        "trond-snekvik.gnu-mapfiles",
+        "ZixuanWang.linkerscript",
+
+        "esbenp.prettier-vscode",
+
+        "github.vscode-pull-request-github",
+
+        "ms-python.python",
+
+        "augustocdias.tasks-shell-input",
+        "rioj7.command-variable"
       ]
     }
   },
-  "postAttachCommand": "sudo /lib/systemd/systemd-udevd --daemon",
-  "postCreateCommand": "make setup build",
-  "postStartCommand": "pyocd pack install STM32WB55RGVx && pyocd pack install STM32L475VGTx",
+  "postAttachCommand": "make setup",
+  "postCreateCommand": "sudo /lib/systemd/systemd-udevd --daemon",
   "remoteUser": "vscode"
 }
