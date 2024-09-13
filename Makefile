@@ -257,6 +257,19 @@ check-git-clean:
 deepclean:check-git-clean
 	@$(call _remove_directory_if_exist,codal)
 
+.PHONY: flash
+flash:flash_pyocd
+
+.PHONY: flash_openocd
+flash_openocd:build
+	cd $(CODAL)
+	openocd -s /usr/share/openocd/scripts/ -s ./scripts/ -f openocd.cfg -c 'program build/STM32 verify reset exit'
+
+.PHONY: flash_pyocd
+flash_pyocd:build
+	cd $(CODAL)
+	pyocd flash build/STM32 --format elf
+
 .PHONY : all
 all : clean setup build
 
