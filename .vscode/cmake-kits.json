@@ -1,0 +1,7 @@
+[  
+    {
+    "name": "GCC 13.3.1 arm-none-eabi",
+    "toolchainFile": "${workspaceFolder:codal}/utils/cmake/toolchains/ARM_GCC/toolchain.cmake",
+    "isTrusted": true
+  }
+]
