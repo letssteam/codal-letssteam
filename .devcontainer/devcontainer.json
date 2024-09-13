@@ -10,11 +10,7 @@
   "privileged": true,
   "mounts": ["type=bind,source=/dev/bus/usb,target=/dev/bus/usb"],
 
-  "runArgs": [
-    "--device=/dev/bus/usb",
-    "--device=/dev/ttyACM0",
-    "--device=/dev/hidraw1"
-  ],
+  "runArgs": ["--device=/dev/bus/usb"],
   // Set *default* container specific settings.json values on container create.
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -120,17 +116,12 @@
         },
 
         "C_Cpp.default.compilerPath": "/arm_toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin/arm-none-eabi-gcc",
-        "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
-
         "C_Cpp.default.cStandard": "c23",
         "C_Cpp.default.cppStandard": "c++23",
         "C_Cpp.default.intelliSenseMode": "gcc-arm",
-        "C_Cpp.loggingLevel": "Debug",
-        "C_Cpp.intelliSenseEngineFallback": "enabled",
+        "C_Cpp.loggingLevel": "Information",
+        "C_Cpp.intelliSenseEngineFallback": "disabled",
         "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-
-        "cmake.generator": "Unix Makefiles",
-        "cmake.sourceDirectory": "${workspaceFolder:codal}",
         "cmake.configureOnOpen": false
       },
       // Add the IDs of extensions you want installed when the container is created.
@@ -138,21 +129,17 @@
         "ms-vscode.cpptools-extension-pack",
         "xaver.clang-format",
         "amiralizadeh9480.cpp-helper",
-
         "marus25.cortex-debug",
         "dan-c-underwood.arm",
         "keroc.hex-fmt",
         "trond-snekvik.gnu-mapfiles",
         "ZixuanWang.linkerscript",
-
         "esbenp.prettier-vscode",
-
         "github.vscode-pull-request-github",
-
         "ms-python.python",
-
         "augustocdias.tasks-shell-input",
-        "rioj7.command-variable"
+        "rioj7.command-variable",
+        "ms-vscode.vscode-serial-monitor"
       ]
     }
   },
