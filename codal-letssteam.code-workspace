@@ -168,6 +168,17 @@
         "group": "build"
       },
       {
+        "label": "clean",
+        "args": [],
+        "type": "shell",
+        "command": "make clean",
+        "problemMatcher": {
+          "base": "$gcc",
+          "fileLocation": "absolute"
+        },
+        "group": "build"
+      },
+      {
         "label": "flash",
         "args": [],
         "type": "shell",
