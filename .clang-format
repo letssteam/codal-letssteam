@@ -1,5 +1,5 @@
 BasedOnStyle: Google
-Standard : c++17
+Standard: Auto
 
 IndentWidth: 4
 TabWidth: 4
@@ -7,16 +7,22 @@ UseTab: Never
 ColumnLimit: 120
 
 AccessModifierOffset: -2
-AllowShortFunctionsOnASingleLine: Inline
-AlignConsecutiveAssignments: true
-AlignConsecutiveMacros: true
+AlignConsecutiveAssignments: AcrossEmptyLines
+AlignConsecutiveMacros: AcrossEmptyLines
 AlignEscapedNewlines: true
+AllowShortFunctionsOnASingleLine: Inline
 BinPackArguments: true
 BinPackParameters: true
 BreakBeforeBraces: Stroustrup
 DerivePointerAlignment: false
 FixNamespaceComments: true
 IndentCaseLabels: true
+IndentPPDirectives: BeforeHash
+IntegerLiteralSeparator:
+  Binary: 4
+  Decimal: 3
+  Hex: -1
 PointerAlignment: Left
+ReferenceAlignment: Left
 SortIncludes: true
 SortUsingDeclarations: true
