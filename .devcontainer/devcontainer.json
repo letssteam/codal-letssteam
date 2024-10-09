@@ -139,7 +139,8 @@
         "ms-python.python",
         "augustocdias.tasks-shell-input",
         "rioj7.command-variable",
-        "ms-vscode.vscode-serial-monitor"
+        "ms-vscode.vscode-serial-monitor",
+        "vivaxy.vscode-conventional-commits"
       ]
     }
   },
