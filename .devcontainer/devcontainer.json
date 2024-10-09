@@ -29,7 +29,8 @@
       "settings": {
         "files.watcherExclude": {
           "**/.git/objects/**": true,
-          "**/built/**": true
+          "**/built/**": true,
+          "**/build/**": true
         },
         "search.exclude": {},
         "terminal.integrated.profiles.linux": {
@@ -126,21 +127,21 @@
       },
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
-        "ms-vscode.cpptools-extension-pack",
-        "xaver.clang-format",
         "amiralizadeh9480.cpp-helper",
-        "marus25.cortex-debug",
+        "augustocdias.tasks-shell-input",
         "dan-c-underwood.arm",
-        "keroc.hex-fmt",
-        "trond-snekvik.gnu-mapfiles",
-        "ZixuanWang.linkerscript",
         "esbenp.prettier-vscode",
         "github.vscode-pull-request-github",
+        "keroc.hex-fmt",
+        "marus25.cortex-debug",
         "ms-python.python",
-        "augustocdias.tasks-shell-input",
-        "rioj7.command-variable",
+        "ms-vscode.cpptools-extension-pack",
         "ms-vscode.vscode-serial-monitor",
-        "vivaxy.vscode-conventional-commits"
+        "rioj7.command-variable",
+        "trond-snekvik.gnu-mapfiles",
+        "vivaxy.vscode-conventional-commits",
+        "xaver.clang-format",
+        "ZixuanWang.linkerscript"
       ]
     }
   },
