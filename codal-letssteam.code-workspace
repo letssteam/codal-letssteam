@@ -94,7 +94,8 @@
       "core_cm4.h": "c",
 
       "variant.h": "c"
-    }
+    },
+    "conventionalCommits.scopes": ["docker"]
   },
   "extensions": {
     "recommendations": [
@@ -146,8 +147,17 @@
         "type": "shell",
         "command": "make build",
         "problemMatcher": {
-          "base": "$gcc",
-          "fileLocation": "absolute"
+          "owner": "cpp",
+          "source": "gcc",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
         },
         "group": {
           "kind": "build",
@@ -160,8 +170,17 @@
         "type": "shell",
         "command": "make build_all",
         "problemMatcher": {
-          "base": "$gcc",
-          "fileLocation": "absolute"
+          "owner": "cpp",
+          "source": "gcc",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
         },
         "group": "build"
       },
@@ -171,8 +190,17 @@
         "type": "shell",
         "command": "make build_codal-stm32-DISCO_L475VG_IOT",
         "problemMatcher": {
-          "base": "$gcc",
-          "fileLocation": "absolute"
+          "owner": "cpp",
+          "source": "gcc",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
         },
         "group": "build"
       },
@@ -182,8 +210,17 @@
         "type": "shell",
         "command": "make build_codal-stm32-PNUCLEO_WB55RG",
         "problemMatcher": {
-          "base": "$gcc",
-          "fileLocation": "absolute"
+          "owner": "cpp",
+          "source": "gcc",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
         },
         "group": "build"
       },
@@ -193,8 +230,17 @@
         "type": "shell",
         "command": "make build_codal-stm32-STEAM32_WB55RG",
         "problemMatcher": {
-          "base": "$gcc",
-          "fileLocation": "absolute"
+          "owner": "cpp",
+          "source": "gcc",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
         },
         "group": "build"
       },
@@ -204,8 +250,17 @@
         "type": "shell",
         "command": "make clean",
         "problemMatcher": {
-          "base": "$gcc",
-          "fileLocation": "absolute"
+          "owner": "cpp",
+          "source": "gcc",
+          "fileLocation": "absolute",
+          "pattern": {
+            "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
         },
         "group": "build"
       },
